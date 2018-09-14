@@ -2,6 +2,10 @@
 
 kofta is a https://github.com/firehol/netdata[netdata] external plugin for monitoring some https://kafka.apache.org[Kafka] metrics.
 
+= Supported metrics
+
+ - Number of consumers by topic
+
 = Configuration
 
 kofta will look its configuration in a file named `kofta.yml` in netdata's configuration directory.
