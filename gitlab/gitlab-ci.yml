@@ -50,7 +50,7 @@ unit:
 # Check if logo.png in the root of the repo corresponds to the content of assets/src/logo.svg.
 logo:
   stage:         test
-  image:         madhead/imagemagick
+  image:         madhead/imagemagick:latest
   script:
     - convert -background none -density 300 -resize 128x128 src/main/assets/logo.svg logo.check.png
     - magick compare -verbose -metric ae logo.png logo.check.png diff.png
@@ -65,8 +65,12 @@ logo:
 publish:
   stage:         publish
   image:
-    name:        madhead/lv-alpina
+    name:        byrnedo/alpine-curl:latest
+    entrypoint:
+      - ''
   script:
-    - JFROG_CLI_OFFER_CONFIG=false jfrog bt upload --user $BINTRAY_USER --key $BINTRAY_KEY --publish --override "build/distributions/kofta.*" madhead/junkyard/kofta/$CI_COMMIT_SHA $CI_COMMIT_SHA/
+    - curl -T build/distributions/kofta.tar -u$BINTRAY_USER:$BINTRAY_KEY -H "X-Bintray-Package:kofta" -H "X-Bintray-Version:$CI_COMMIT_SHA" https://api.bintray.com/content/madhead/junkyard/$CI_COMMIT_SHA/
+    - curl -T build/distributions/kofta.zip -u$BINTRAY_USER:$BINTRAY_KEY -H "X-Bintray-Package:kofta" -H "X-Bintray-Version:$CI_COMMIT_SHA" https://api.bintray.com/content/madhead/junkyard/$CI_COMMIT_SHA/
+    - curl -X POST -u$BINTRAY_USER:$BINTRAY_KEY https://api.bintray.com/content/madhead/junkyard/kofta/$CI_COMMIT_SHA/publish
   only:
     - master
