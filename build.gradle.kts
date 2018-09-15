@@ -13,6 +13,7 @@ dependencies {
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = "1.2.70")
     implementation(group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml")
     implementation(group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin")
+    implementation(group = "org.apache.kafka", name = "kafka-clients", version = "2.0.0")
 
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api", version = "5.3.0")
     testRuntime(group = "org.junit.jupiter", name = "junit-jupiter-engine", version = "5.3.0")
