@@ -4,8 +4,8 @@ stages:
   - test
   - publish
 
-# Build the JAR.
-jar:
+# Build the distribution.
+distr:
   stage:         build
   image:         openjdk:8
   # TODO:        Move to `variables` section when possible.
