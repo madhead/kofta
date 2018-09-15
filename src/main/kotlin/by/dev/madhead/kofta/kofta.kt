@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
     }
 
     configuration.servers.forEachIndexed { index, server ->
-        println("CHART 'Kafka.consumers_by_topic_${server.name}' '${server.name}' 'Consumers by topic for ${server.name}' 'consumers' '${server.name}' 'consumers_by_topic' line ${PRIORITY_BASE + index} ${server.refreshInterval}")
+        println("CHART 'kofta.consumers_by_topic_${server.name}' '${server.name}' 'Consumers by topic for ${server.name}' 'consumers' '${server.name}' 'consumers_by_topic' line ${PRIORITY_BASE + index} ${server.refreshInterval}")
         server.topics.forEach {
             println("DIMENSION 'consumers_by_topic_$it' '$it' absolute")
         }
@@ -45,7 +45,7 @@ fun main(args: Array<String>) {
                                 .map { (topic, consumerIds) -> topic to HashSet(consumerIds) }
                                 .toMap()
                             synchronized(System.out) {
-                                println("BEGIN 'Kafka.consumers_by_topic_${server.name}'")
+                                println("BEGIN 'kofta.consumers_by_topic_${server.name}'")
                                 server.topics.forEach {
                                     println("SET 'consumers_by_topic_$it' = ${consumersByTopic.getOrDefault(it, emptySet<String>()).size}")
                                 }
