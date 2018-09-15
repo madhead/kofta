@@ -6,7 +6,7 @@ kofta is a https://github.com/firehol/netdata[netdata] external plugin for monit
 
  - Number of consumers by topic
 
-= Configuration
+= Configuration format
 
 kofta will look its configuration in a file named `kofta.yml` in netdata's configuration directory.
 The format is shown below:
@@ -36,3 +36,34 @@ servers:
       - topic 3
       - topic 4
 ----
+
+= Usage
+
+Download the latest version https://bintray.com/madhead/junkyard/kofta[from Bintray] and unarchive it to the netdata's `plugins.d` folder (depends on the distro).
+Make a symlink named `kofta.plugin` in `plugins.d` folder poninting to `kofta/bin/kofta` executable.
+Restart netdata and you'll notice a "kofta" section showing configured metrics.
+
+= Configuring alerts
+
+Add a snippet like this to a file with `conf` extentions in netdata's `health.d` directory (e.g. `/opt/netdata/etc/netdata/health.d/kofta.conf`):
+
+[source]
+----
+ alarm: kafka_consumers                      # <1>
+    on: kofta.consumers_by_topic_kafka       # <2>
+  calc: $topic-name                          # <3>
+ every: 10s                                  # <4>
+  crit: $this = 0                            # <5>
+ units: consumers                            # <6>
+  info: number of consumers for bids topic   # <7>
+    to: sysadmin                             # <8>
+----
+<1> https://github.com/firehol/netdata/wiki/health-configuration-reference#alarm-line-alarm-or-template[Alarm name], arbitrary string seen
+<2> https://github.com/firehol/netdata/wiki/health-configuration-reference#alarm-line-on[Chart ID]
+<3> https://github.com/firehol/netdata/wiki/health-configuration-reference#alarm-line-calc[Data series from the chart]
+<4> https://github.com/firehol/netdata/wiki/health-configuration-reference#alarm-line-every[Alarm update frequency]
+<5> https://github.com/firehol/netdata/wiki/health-configuration-reference#alarm-lines-warn-and-crit[Alarm trigger]
+<6> Noun shown on the alarm badge
+<7> Alarm description shown on the UI
+<8> https://github.com/firehol/netdata/wiki/health-configuration-reference#alarm-line-to[Roles to notify].
+See netdata's https://github.com/firehol/netdata/wiki/alarm-notifications[notification documentation] for more info.
