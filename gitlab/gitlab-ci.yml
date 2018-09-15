@@ -67,6 +67,6 @@ publish:
   image:
     name:        madhead/lv-alpina
   script:
-    - jfrog bt upload --user $BINTRAY_USER --key $BINTRAY_KEY --publish --override "build/distributions/kofta.*" madhead/junkyard/kofta/$CI_COMMIT_SHA $CI_COMMIT_SHA/
+    - JFROG_CLI_OFFER_CONFIG=false jfrog bt upload --user $BINTRAY_USER --key $BINTRAY_KEY --publish --override "build/distributions/kofta.*" madhead/junkyard/kofta/$CI_COMMIT_SHA $CI_COMMIT_SHA/
   only:
     - master
