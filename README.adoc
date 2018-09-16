@@ -45,7 +45,7 @@ Restart netdata and you'll notice a "kofta" section showing configured metrics.
 
 = Configuring alerts
 
-Add a snippet like this to a file with `conf` extentions in netdata's `health.d` directory (e.g. `/opt/netdata/etc/netdata/health.d/kofta.conf`):
+Add a snippet like this to a file with a `conf` extention in netdata's `health.d` directory (e.g. `/opt/netdata/etc/netdata/health.d/kofta.conf`):
 
 [source]
 ----
