@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation(group = "com.fasterxml.jackson", name = "jackson-bom", version = "2.9.6")
+    implementation(platform("com.fasterxml.jackson:jackson-bom:2.9.6"))
 
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = "1.2.70")
     implementation(group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml")
@@ -24,8 +24,8 @@ application {
 }
 
 tasks {
-    val wrapper by creating(Wrapper::class) {
-        gradleVersion = "4.10.1"
+    wrapper {
+        gradleVersion = "5.0"
         distributionType = Wrapper.DistributionType.ALL
     }
 

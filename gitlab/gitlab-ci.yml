@@ -61,6 +61,17 @@ logo:
     expire_in:   1 hour
     when:        on_failure
 
+gradle-version:
+  stage: test
+  image: openjdk:8
+  script:
+    - gradle_version=$(./gradlew --version | sed -rn 's/^Gradle (.+)$/\1/p')
+    - latest_gradle_version=$(curl https://services.gradle.org/versions/current | python2 -c 'import json,sys;print json.load(sys.stdin)["version"]')
+    - echo $gradle_version
+    - echo $latest_gradle_version
+    - '[[ $gradle_version == $latest_gradle_version ]]'
+  allow_failure: true
+
 # Publish to Bintray.
 publish:
   stage:         publish
